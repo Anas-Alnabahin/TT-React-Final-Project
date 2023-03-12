@@ -2,6 +2,7 @@
 
 import React from "react";
 import FormsHeader from "../../components/FormsHeader";
+import LoginFooter from "../../components/LoginFooter";
 import LoginForm from "../../components/LoginForm";
 
 export default function Login() {
@@ -9,6 +10,7 @@ export default function Login() {
     <div>
       <FormsHeader />
       <LoginForm />
+      <LoginFooter />
     </div>
   );
 }
