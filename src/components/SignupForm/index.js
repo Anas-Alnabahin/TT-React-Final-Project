@@ -1,8 +1,10 @@
 /** @format */
 
+import axios from "axios";
 import { useFormik } from "formik";
 import React from "react";
 import * as Yup from "yup";
+import { apiUrl } from "../../utils/api";
 import CheckBox from "../CheckBox";
 import Error from "../Error";
 import FormBtn from "../FormBtn";
@@ -28,8 +30,16 @@ export default function SignupForm() {
     terms: false,
   };
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = async ({ name, email, password }) => {
+    const res = await axios
+      .post(`${apiUrl}users`, { name, email, password })
+      .catch((err) => {
+        console.log(err.message);
+      });
+
+    if (res) {
+      localStorage.setItem("user", JSON.stringify(res.data));
+    }
   };
 
   const formik = useFormik({

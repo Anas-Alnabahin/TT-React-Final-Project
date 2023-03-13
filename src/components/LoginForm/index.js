@@ -1,8 +1,10 @@
 /** @format */
 
+import axios from "axios";
 import { useFormik } from "formik";
 import React from "react";
 import * as Yup from "yup";
+import { apiUrl } from "../../utils/api";
 import Error from "../Error";
 import FormBtn from "../FormBtn";
 import FormItem from "../FormItem";
@@ -21,8 +23,18 @@ export default function LoginForm() {
     password: "",
   };
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const name = "PlaceHolder";
+
+  const onSubmit = async ({ email, password }) => {
+    const res = await axios
+      .post(`${apiUrl}users`, { email, password, name })
+      .catch((err) => {
+        console.log(err.message);
+      });
+
+    if (res) {
+      localStorage.setItem("user", JSON.stringify(res.data));
+    }
   };
 
   const formik = useFormik({
